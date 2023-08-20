@@ -6,7 +6,7 @@ const LogInPage = () => {
   const navigate = useNavigate();
   return (
     <div className="flex w-full h-screen">
-      <div className="w-full flex justify-center items-center lg:w-1/2 bg-gray-100 my-5">
+      <div className="w-full h-full flex justify-center items-center lg:w-1/2 bg-gray-100 ">
         <LogIn />
       </div>
       <div className="hidden relative lg:flex h-full w-1/2 justify-center items-center bg-gray-200">

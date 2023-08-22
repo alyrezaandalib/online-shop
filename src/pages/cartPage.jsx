@@ -35,8 +35,8 @@ const CartPage = () => {
 
   return (
     <Layout>
-      <main className="my-14 flex justify-around items-start w-[85%] mx-auto max-w-[1170px] rounded-lg">
-        <section className="w-[56%] flex flex-col justify-between">
+      <main className="block my-14 lg:flex justify-around items-start w-[85%] mx-auto max-w-[1170px] rounded-lg">
+        <section className="w-full lg:w-[56%] flex flex-col justify-between">
           {cart.length &&
             cart.map((item) => {
               return (
@@ -48,41 +48,43 @@ const CartPage = () => {
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-auto rounded-lg"
+                      className="w-full h-full max-h-[133px] max-w-[190px] rounded-lg"
                     />
                   </div>
-                  <div className="font-bold">{item.name}</div>
-                  <div>
-                    {/* $ {item.offPrice * item.quantity} */}{" "}
-                    <div className="flex items-center justify-between w-[90px]">
-                      <p
-                        className={
-                          item.discount ? "text-sm font-bold" : "hidden"
-                        }
-                      >
-                        $ {item.offPrice * item.quantity}
-                      </p>
+                  <div className="w-fit lg:flex lg:w-[200px] justify-between items-center">
+                    <div className="font-bold">{item.name}</div>
+                    <div>
+                      {/* $ {item.offPrice * item.quantity} */}
+                      <div className="flex items-center justify-between w-[90px]">
+                        <p
+                          className={
+                            item.discount ? "text-sm font-bold" : "hidden"
+                          }
+                        >
+                          $ {item.offPrice * item.quantity}
+                        </p>
+                        <p
+                          className={
+                            item.discount
+                              ? "text-[12px] flex items-center bg-red-500 text-white rounded-md px-[6px] py-[1px]"
+                              : "hidden"
+                          }
+                        >
+                          {item.discount} <FaPercentage />
+                        </p>
+                      </div>
                       <p
                         className={
                           item.discount
-                            ? "text-[12px] flex items-center bg-red-500 text-white rounded-md px-[6px] py-[1px]"
-                            : "hidden"
+                            ? "text-xs line-through text-gray-600"
+                            : "text-sm font-bold"
                         }
                       >
-                        {item.discount} <FaPercentage />
+                        $ {item.price * item.quantity}
                       </p>
                     </div>
-                    <p
-                      className={
-                        item.discount
-                          ? "text-xs line-through text-gray-600"
-                          : "text-sm font-bold"
-                      }
-                    >
-                      $ {item.price * item.quantity}
-                    </p>
                   </div>
-                  <div className="flex justify-between w-[15%] items-center">
+                  <div className="flex justify-between items-center">
                     <button
                       onClick={() => addQuantityHandler(item)}
                       type="button"
@@ -127,7 +129,7 @@ const CartSummery = ({ total, cart }) => {
     : 0;
 
   return (
-    <section className="flex flex-col bg-white shadow-md items-start rounded-lg p-9 justify-between w-[37%]">
+    <section className="w-full flex flex-col bg-white shadow-md items-start rounded-lg p-9 justify-between lg:w-[37%]">
       <h2 className="pb-4 w-full font-bold border-b border-[#c4b5fd]">
         Payment Information
       </h2>

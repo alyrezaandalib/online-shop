@@ -26,7 +26,7 @@ const Products = () => {
   return (
     <Layout>
       <main className="flex justify-center ">
-        <section className="rounded-md grid grid-cols-4 gap-x-3 gap-y-3 w-[90vw] max-w-[1170px] mt-14 p-3">
+        <section className="rounded-md grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-3 w-[90vw] max-w-[1170px] mt-14 p-3">
           {data.products.map((product) => {
             return (
               <section

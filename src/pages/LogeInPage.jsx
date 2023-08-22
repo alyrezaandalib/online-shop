@@ -6,8 +6,13 @@ const LogInPage = () => {
   const navigate = useNavigate();
   return (
     <div className="flex w-full h-screen">
-      <div className="w-full h-full flex justify-center items-center lg:w-1/2 bg-gray-100 ">
+      <div className="w-full h-full flex flex-col justify-center items-center lg:w-1/2 bg-gray-100 ">
         <LogIn />
+        <Link to={"/sign-up"}>
+          <h2 className="flex lg:hidden mt-10 text-[#3730a3] font-bold">
+            go to sign up
+          </h2>
+        </Link>
       </div>
       <div className="hidden relative lg:flex h-full w-1/2 justify-center items-center bg-gray-200">
         <div className="w-60 h-60 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full animate-bounce"></div>

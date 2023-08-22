@@ -3,6 +3,7 @@ import { BsCart2, BsFill1CircleFill } from "react-icons/bs";
 import { useCart } from "../context/cartProvider";
 import { MenuCustomList } from "./dropDown";
 import { ButtonDefault } from "./button";
+import DrawerWithNavigation from "./sidbarNav";
 
 const items = [
   { name: "Home", to: "/" },
@@ -16,7 +17,7 @@ const Navigation = () => {
 
   return (
     <header className=" w-screen h-[3.5rem]  fixed backdrop-blur-3xl z-20 top-0 left-0 flex justify-center  ">
-      <nav className="flex justify-between items-center w-[85%]">
+      <nav className="hidden lg:flex justify-between items-center w-[85%]">
         <ul className="flex justify-between items-center ">
           {items.map((item) => {
             return (
@@ -65,6 +66,10 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
+      <div className="flex w-full px-10 justify-between items-center lg:hidden">
+        <h2 className="font-bold hover:text-[#3730a3] text-lg">logo</h2>
+        <DrawerWithNavigation />
+      </div>
     </header>
   );
 };

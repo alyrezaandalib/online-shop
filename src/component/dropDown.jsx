@@ -5,7 +5,6 @@ import {
   MenuList,
   MenuItem,
   Button,
-  Card,
   Typography,
 } from "@material-tailwind/react";
 import { ChevronDownIcon, RocketLaunchIcon } from "@heroicons/react/24/outline";

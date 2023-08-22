@@ -15,7 +15,7 @@ export function InputWithButton() {
         <Input
           type="text"
           color="deep-purple"
-          label="discount code"
+          label="code"
           value={discountCode}
           onChange={onChange}
           className="pr-20"

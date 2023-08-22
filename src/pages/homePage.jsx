@@ -11,13 +11,13 @@ const Home = () => {
     <Layout>
       <main className="mt-24 flex flex-col items-center justify-center">
         <div className="flex items-center justify-between w-[90%] h-full">
-          <div className="mx-3 w-1/3 ">
+          <div className="mx-3 w-1/3 hidden lg:block ">
             <Typography className="text-4xl font-semibold">Welcome</Typography>
             <Typography className="font-medium text-lg text-gray-500 mt-8">
               Bring on the fun and excitement every one of our shoes brings
             </Typography>
             <Typography className="font-medium text-lg text-gray-500 mt-8"></Typography>
-            <div className="mt-8">
+            <div className="mt-8 ">
               <Link to="/products">
                 <Button color="deep-purple" className="mr-3 rounded-none">
                   explore
@@ -34,7 +34,7 @@ const Home = () => {
               </Link>
             </div>
           </div>
-          <div className="w-1/2 h-full">
+          <div className="w-full h-full lg:w-1/2">
             <HomeSwipJs dataList={dataList} />
           </div>
         </div>

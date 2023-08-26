@@ -9,8 +9,8 @@ const SignUpPage = () => {
       <div className="w-full flex flex-col justify-center items-center lg:w-1/2 bg-gray-100">
         <SignUp />
         <Link to={"/log-in"}>
-          <h2 className="flex lg:hidden mt-10 text-[#3730a3] font-bold">
-            go to log In
+          <h2 className="flex lg:hidden mt-5 text-[#3730a3] font-bold">
+            Already login ?
           </h2>
         </Link>
       </div>

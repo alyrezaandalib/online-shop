@@ -2,10 +2,11 @@ import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { useCart, useCartActions } from "../context/cartProvider";
 import { FiTrash2 } from "react-icons/fi";
 import { InputWithButton } from "../component/inputWithButton";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaPercentage } from "react-icons/fa";
 import Layout from "../layout/Layout";
 import { ButtonDefault } from "../component/button";
+import { Button } from "@material-tailwind/react";
 
 const CartPage = () => {
   const cartState = useCart();
@@ -124,6 +125,7 @@ const CartPage = () => {
 export default CartPage;
 
 const CartSummery = ({ total, cart }) => {
+  const navigate = useNavigate();
   const originalTotalPrice = cart.length
     ? cart.reduce((acc, curr) => acc + curr.quantity * curr.price, 0)
     : 0;
@@ -149,9 +151,13 @@ const CartSummery = ({ total, cart }) => {
           <h2>final price</h2>
           <span>$ {total}</span>
         </div>
-        <Link to="/checkout" className="w-full">
-          <ButtonDefault name="Continue the order" onClick="" />
-        </Link>
+        <Button
+          color="deep-purple"
+          className="w-full"
+          onClick={() => navigate("/checkout")}
+        >
+          Continue the payment
+        </Button>
       </div>
     </section>
   );

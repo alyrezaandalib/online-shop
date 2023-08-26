@@ -1,10 +1,12 @@
-import { FcGoogle } from "react-icons/fc";
-import Input from "./input";
-import { Button } from "@material-tailwind/react";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
-import axios from "axios";
+import Input from "./input";
+import { signUpUser } from "../services/signUpsServices";
+import { Button } from "@material-tailwind/react";
+import { toast } from "react-toastify";
+import { json, useNavigate } from "react-router-dom";
+import { useAuthActions } from "../context/AuthProvider";
 
 const initialValues = {
   name: "",
@@ -12,16 +14,6 @@ const initialValues = {
   password: "",
   passwordConfirmation: "",
   phoneNumber: "",
-  terms: false,
-};
-
-// 2.
-const onSubmit = (values) => {
-  // console.log(values);
-  axios
-    .post("", values)
-    .then((response) => console.log(response.data))
-    .catch((error) => console.log(error));
 };
 
 const validationSchema = Yup.object({
@@ -35,7 +27,7 @@ const validationSchema = Yup.object({
     .min(11, "Must be exactly 11 digits")
     .max(11, "Must be exactly 11 digits"),
   passwordConfirmation: Yup.string()
-    .required("passwordConfirmation is required")
+    .required("password is required")
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
   password: Yup.string()
     .required("Password is required")
@@ -43,24 +35,36 @@ const validationSchema = Yup.object({
     .max(20, "at last you can enter 20 character"),
 });
 
-const SignUp = () => {
-  const [formValues, setFormValues] = useState(null);
-  useEffect(() => {}, []);
-
-  // const formik = useFormik({
-  //   initialValues: formValues || initialValues,
-  //   onSubmit,
-  //   validationSchema,
-  //   validateOnMount: true,
-  //   enableReinitialize: true,
-  // });
+const SignUpForm = () => {
+  const navigate = useNavigate();
+  const setAuth = useAuthActions();
+  const onSubmit = async (values) => {
+    const { name, email, password, phoneNumber } = values;
+    const userData = {
+      name,
+      email,
+      password,
+      phoneNumber,
+    };
+    try {
+      const { data } = await signUpUser(userData);
+      setAuth(data);
+      localStorage.setItem("AuthState", JSON.stringify(data));
+      toast.success("welcome to online shop");
+      navigate("/");
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        const errorMessage = error.response.data.message;
+        toast.error(errorMessage);
+      }
+    }
+  };
 
   const formik = useFormik({
-    initialValues: formValues || initialValues,
+    initialValues,
     onSubmit,
     validationSchema,
     validateOnMount: true,
-    enableReinitialize: true,
   });
 
   return (
@@ -68,11 +72,11 @@ const SignUp = () => {
       className="bg-white px-14 py-5 rounded-3xl border-2 shadow-xl"
       onSubmit={formik.handleSubmit}
     >
-      <h1 className="text-3xl font-semibold">Welcome Back</h1>
-      <p className="font-medium text-sm text-gray-500 mt-4">
+      <h1 className="text-2xl font-semibold">Welcome Back</h1>
+      <p className="font-medium text-sm text-gray-500 mt-3">
         Welcome back! Please enter your details.
       </p>
-      <div className="mt-6">
+      <div className="mt-4">
         <Input formik={formik} label="Name" name="name" />
         <Input formik={formik} label="Email" name="email" />
         <Input formik={formik} label="Phone Number" name="phoneNumber" />
@@ -88,25 +92,14 @@ const SignUp = () => {
           name="passwordConfirmation"
           type="password"
         />
-        <div className="flex justify-start items-center mt-8 ">
-          <input
-            type="checkbox"
-            id="terms"
-            name="terms"
-            value={true}
-            // onChange={formik.handleChange}
-            // checked={formik.values.terms}
-          />
-          <label htmlFor="terms" className="ml-2 font-medium text-base ">
-            Terms and conditions
-          </label>
-        </div>
         <div className="mt-8 flex flex-col gap-y-4">
-          <Button color="deep-purple">Sign Up</Button>
+          <Button type="submit" color="deep-purple">
+            Sign Up
+          </Button>
         </div>
       </div>
     </form>
   );
 };
 
-export default SignUp;
+export default SignUpForm;

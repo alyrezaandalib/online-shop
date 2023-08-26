@@ -13,9 +13,8 @@ import "../App";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 export default function HomeSwipJs({ dataList }) {
-  console.log(dataList);
   return (
-    <div className="h-[65vh] w-full rounded-3xl border-none outline-none bg-[#9e96c5] shadow-xl">
+    <div className="h-[65vh] w-full rounded-3xl border-none outline-none text-[#3730a3] bg-[#9e96c5] shadow-xl">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -28,7 +27,7 @@ export default function HomeSwipJs({ dataList }) {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="rounded-3xl w-full h-fit shadow-xl"
+        className="rounded-3xl w-full h-fit shadow-xl text-[#3730a3]"
       >
         <SwiperSlide>
           <img src={dataList[0].image} alt={dataList[0].name} />

@@ -1,25 +1,17 @@
-import { FcGoogle } from "react-icons/fc";
-import Input from "./input";
-import { Button } from "@material-tailwind/react";
-
-import { useEffect, useState } from "react";
-import * as Yup from "yup";
-import axios from "axios";
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
+import { logInUser } from "../services/loginServices";
+import * as Yup from "yup";
+import Input from "./input";
+import { FcGoogle } from "react-icons/fc";
+import { Button } from "@material-tailwind/react";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthActions } from "../context/AuthProvider";
 
 const initialValues = {
   email: "",
   password: "",
-  terms: false,
-};
-
-// 2.
-const onSubmit = (values) => {
-  // console.log(values);
-  axios
-    .post("", values)
-    .then((response) => console.log(response.data))
-    .catch((error) => console.log(error));
 };
 
 const validationSchema = Yup.object({
@@ -32,49 +24,61 @@ const validationSchema = Yup.object({
     .max(20, "at last you can enter 20 character"),
 });
 
-const LogIn = () => {
-  const [formValues, setFormValues] = useState(null);
-  useEffect(() => {}, []);
+const SignUpForm = () => {
+  const navigate = useNavigate();
+  const setAuth = useAuthActions();
+  const onSubmit = async (values) => {
+    try {
+      const { data } = await logInUser(values);
+      setAuth(data);
+      localStorage.setItem("AuthState", JSON.stringify(data));
+      toast.success("welcome to online shop ");
+      navigate("/");
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        const errorMessage = error.response.data.message;
+        toast.error(errorMessage);
+      }
+    }
+  };
 
   const formik = useFormik({
-    initialValues: formValues || initialValues,
+    initialValues,
     onSubmit,
     validationSchema,
     validateOnMount: true,
-    enableReinitialize: true,
   });
+
   return (
     <form
-      className="bg-white px-14 py-10 rounded-3xl border-2 shadow-xl"
+      className="bg-white px-14 py-5 rounded-3xl border-2 shadow-xl"
       onSubmit={formik.handleSubmit}
     >
-      <h1 className="text-4xl font-semibold">Welcome Back</h1>
-      <p className="font-medium text-lg text-gray-500 mt-4">
+      <h1 className="text-2xl font-semibold">Welcome Back</h1>
+      <p className="font-medium text-sm text-gray-500 mt-3">
         Welcome back! Please enter your details.
       </p>
-      <div className="mt-6">
+      <div className="mt-4">
         <Input formik={formik} label="Email" name="email" />
         <Input
           formik={formik}
-          label="Password Confirmation"
+          label="Password"
           name="password"
           type="password"
         />
-        <div className="flex justify-between items-center mt-8">
-          <div>
-            <input type="checkbox" className="" id="checkBox" />
-            <label htmlFor="checkBox" className="ml-2 font-medium text-base">
-              Terms and conditions
-            </label>
-          </div>
-          <button className="font-medium text-[#673AB7] text-base">
-            Forgot password
-          </button>
+        <div className="mt-8 text-[#3730a3]">
+          <Link to={"/sign-up"}>Forget your password ?</Link>
         </div>
-        <div className="mt-8 flex flex-col gap-y-4">
-          <Button color="deep-purple">log in</Button>
-          <Button color="white" className="flex justify-center items-center">
-            <FcGoogle className="mr-2" />
+        <div className="mt-5 flex flex-col gap-y-4">
+          <Button type="submit" color="deep-purple">
+            log in
+          </Button>
+          <Button
+            variant="outlined"
+            color="blue-gray"
+            className="flex items-center gap-3"
+          >
+            <FcGoogle className="text-lg" />
             Continue with Google
           </Button>
         </div>
@@ -83,4 +87,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default SignUpForm;

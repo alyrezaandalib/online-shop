@@ -30,7 +30,7 @@ export default function DrawerWithNavigation() {
         <div className="mb-6 flex flex-col items-center justify-between rounded-lg">
           <div className="flex w-full justify-between items-center mb-5">
             <Typography variant="h5" color="blue-gray">
-              logo
+              online shop
             </Typography>
             <IconButton
               variant="text"

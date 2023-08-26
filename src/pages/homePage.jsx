@@ -38,7 +38,7 @@ const Home = () => {
             <HomeSwipJs dataList={dataList} />
           </div>
         </div>
-        <div className="bg-transparent mt-14 flex justify-center items-center w-full h-10 font-bold text-lg">
+        <div className="hidden bg-transparent mt-14 lg:flex justify-center items-center w-full h-10 font-bold text-lg">
           <div className="w-fit h-full animate-bounce mt-7 ">
             <BsMouse />
           </div>

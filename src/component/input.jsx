@@ -1,14 +1,12 @@
-import { useState } from "react";
-
 const Input = ({ label, type = "text", name, formik }) => {
   return (
-    <div className="relative z-0 mt-5">
+    <div className="relative z-0 mt-6">
       <input
         type={type}
         id={name}
         {...formik.getFieldProps(name)}
         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-purple-800 focus:outline-none focus:ring-0 focus:border-purple-900 peer"
-        placeholder=" "
+        placeholder=""
       />
       <label
         htmlFor={name}
@@ -18,7 +16,7 @@ const Input = ({ label, type = "text", name, formik }) => {
       </label>
 
       {formik.errors[name] && formik.touched[name] && (
-        <div className="text-red-500 absolute text-xs">
+        <div className="text-red-500 absolute text-[14px]">
           {formik.errors[name]}
         </div>
       )}

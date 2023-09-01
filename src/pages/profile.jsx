@@ -1,8 +1,19 @@
 import Layout from "../layout/Layout";
 import { Button } from "@material-tailwind/react";
 import { Input } from "@material-tailwind/react";
+import { useAuth } from "../context/AuthProvider";
 
 const Profile = () => {
+  const userData = useAuth();
+  if (!userData) {
+    return (
+      <Layout>
+        <div className="my-16 w-[70%] h-fit font-bold text-center mx-auto py-3 px-5 text-lg">
+          <h1>You are not logged in yet</h1>
+        </div>
+      </Layout>
+    );
+  }
   return (
     <Layout>
       <div className="my-16 w-[80%] mx-auto py-3 px-5 lg:w-[40%]">

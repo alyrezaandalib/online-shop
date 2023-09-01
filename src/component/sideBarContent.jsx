@@ -143,7 +143,8 @@ export default function SidebarContent() {
                 </ListItemPrefix>
                 <button
                   onClick={() => {
-                    setAuth(null);
+                    localStorage.setItem("AuthState", false);
+                    setAuth(false);
                   }}
                 >
                   Log Out

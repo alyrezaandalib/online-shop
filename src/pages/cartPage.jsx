@@ -49,10 +49,10 @@ const CartPage = () => {
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full max-h-[133px] max-w-[190px] rounded-lg"
+                      className="w-full h-full max-h-[133px] max-w-[190px] rounded-lg mr-5"
                     />
                   </div>
-                  <div className="w-fit lg:flex lg:w-[200px] justify-between items-center">
+                  <div className="w-fit lg:flex lg:w-[200px] justify-between items-center ml-5">
                     <div className="font-bold">{item.name}</div>
                     <div>
                       {/* $ {item.offPrice * item.quantity} */}
@@ -132,7 +132,7 @@ const CartSummery = ({ total, cart }) => {
 
   return (
     <section className="w-full flex flex-col bg-white shadow-md items-start rounded-lg p-9 justify-between lg:w-[37%]">
-      <h2 className="pb-4 w-full font-bold border-b border-[#c4b5fd]">
+      <h2 className="pb-4 w-full font-bold border-b border-[#c4b5fd] text-xl">
         Payment Information
       </h2>
       <div className="w-full my-6">
@@ -154,7 +154,7 @@ const CartSummery = ({ total, cart }) => {
         <Button
           color="deep-purple"
           className="w-full"
-          onClick={() => navigate("/checkout")}
+          onClick={() => navigate("/sign-up?redirect=/checkout")}
         >
           Continue the payment
         </Button>

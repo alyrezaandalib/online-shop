@@ -1,12 +1,13 @@
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
 import * as Yup from "yup";
+import { useEffect } from "react";
 import Input from "./input";
 import { signUpUser } from "../services/signUpsServices";
 import { Button } from "@material-tailwind/react";
 import { toast } from "react-toastify";
-import { json, useNavigate } from "react-router-dom";
-import { useAuthActions } from "../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { useAuth, useAuthActions } from "../context/AuthProvider";
+import UseQuery from "../hooks/useQuery";
 
 const initialValues = {
   name: "",
@@ -36,8 +37,16 @@ const validationSchema = Yup.object({
 });
 
 const SignUpForm = () => {
+  const query = UseQuery();
+  const redirect = query.get("redirect") || "/";
   const navigate = useNavigate();
   const setAuth = useAuthActions();
+  const userData = useAuth();
+
+  useEffect(() => {
+    if (userData) navigate(redirect);
+  }, [userData, redirect]);
+
   const onSubmit = async (values) => {
     const { name, email, password, phoneNumber } = values;
     const userData = {
@@ -51,7 +60,7 @@ const SignUpForm = () => {
       setAuth(data);
       localStorage.setItem("AuthState", JSON.stringify(data));
       toast.success("welcome to online shop");
-      navigate("/");
+      navigate(redirect);
     } catch (error) {
       if (error.response && error.response.data.message) {
         const errorMessage = error.response.data.message;

@@ -21,7 +21,6 @@ const items = [
 export default function ProfileMenu() {
   const userData = useAuth();
   const setAuth = useAuthActions();
-  console.log(userData);
   return (
     <Menu>
       <MenuHandler>
@@ -47,7 +46,8 @@ export default function ProfileMenu() {
         <button
           className="w-full"
           onClick={() => {
-            setAuth(null);
+            localStorage.setItem("AuthState", false);
+            setAuth(false);
           }}
         >
           <MenuItem className="flex items-end justify-start my-2">

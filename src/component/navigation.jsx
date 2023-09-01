@@ -81,7 +81,7 @@ const Navigation = () => {
         </div>
       </nav>
       <div className="flex w-full px-10 justify-between items-center lg:hidden">
-        <h2 className="font-bold hover:text-[#3730a3] text-lg">logo</h2>
+        <h2 className="font-bold hover:text-[#3730a3] text-lg">Online Shop</h2>
         <DrawerWithNavigation />
       </div>
     </header>
